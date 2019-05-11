@@ -1,35 +1,27 @@
-package sda.lukaszs.myjdbcproject;
+package sda.lukaszs.myjdbcproject.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Data
 @Table(name="employee")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
 
     @Id
-    @Getter
-    @Setter
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     private long id;
 
-    @Getter
-    @Setter
-    @Column(name = "name", columnDefinition="VARCHAR(50) DEFAULT NULL")
+    @Column(name = "name", nullable = false, columnDefinition="VARCHAR(50) DEFAULT ''")
     private String name;
 
-    @Getter
-    @Setter
-    @Column(name = "salary", columnDefinition="INT(11) DEFAULT NULL")
+    @Column(name = "salary", nullable = false, columnDefinition="INT(11) DEFAULT 0")
     private int salary;
 
     public Employee(String name, int salary) {

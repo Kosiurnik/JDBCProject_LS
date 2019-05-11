@@ -1,5 +1,7 @@
 package sda.lukaszs.myjdbcproject;
 
+import sda.lukaszs.myjdbcproject.model.Employee;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
