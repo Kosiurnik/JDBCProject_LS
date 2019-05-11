@@ -4,5 +4,5 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="EmployeeRepository" class="sda.lukaszs.myjdbcproject.repository.EmployeeRepository" />
-
+    <bean id="UserRepository" class="sda.lukaszs.myjdbcproject.repository.UserRepository" />
 </beans>

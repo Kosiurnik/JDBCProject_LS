@@ -2,6 +2,7 @@ package sda.lukaszs.myjdbcproject;
 
 import sda.lukaszs.myjdbcproject.manager.RepositoryManager;
 import sda.lukaszs.myjdbcproject.model.Employee;
+import sda.lukaszs.myjdbcproject.model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,8 +50,21 @@ public class Main {
 
     private static void HibernateExample() {
         Scanner scanner = new Scanner(System.in);
-        zad_9(scanner);
+        //zad_9(scanner);
+        testUsers();
         scanner.close();
+    }
+
+    private static void testUsers(){
+        //dodaj
+        /*User user = new User();
+        user.setLogin("test");
+        RepositoryManager.getInstance().getUserRepository().add(user);*/
+
+        //edytuj
+        User user = RepositoryManager.getInstance().getUserRepository().getById(1);
+        user.setLogin("test2");
+        RepositoryManager.getInstance().getUserRepository().edit(user);
     }
 
     private static void zad_9(Scanner scanner){
