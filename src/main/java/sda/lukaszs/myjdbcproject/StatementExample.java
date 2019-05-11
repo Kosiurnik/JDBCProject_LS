@@ -55,4 +55,15 @@ class StatementExample {
         }
         return output;
     }
+
+    static List<Employee> selectAllByName(Connection connection, String name) throws SQLException{
+        List<Employee> output = new ArrayList<>();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT name, salary FROM employee WHERE name = ?");
+        preparedStatement.setString(1,name);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while(resultSet.next()){
+            output.add(new Employee(resultSet.getString(1),resultSet.getInt(2)));
+        }
+        return output;
+    }
 }
