@@ -1,9 +1,8 @@
 package sda.lukaszs.myjdbcproject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class StatementExample {
     static void createTableExample(Connection connection) throws SQLException {
@@ -17,7 +16,7 @@ class StatementExample {
     static void insertExample(Connection connection) throws SQLException{
         PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO `employee` (`id`, `name`, `salary`) VALUES (NULL, ?, ?)");
         for (int i = 0; i < 5; i++) {
-            preparedStatement.setString(1,"Grzegorz Brzęczyszczykiewicz");
+            preparedStatement.setString(1,"Grzegorz Brzeczyszczykiewicz");
             preparedStatement.setInt(2,3000+(100*i));
             preparedStatement.executeUpdate();
         }
@@ -45,5 +44,15 @@ class StatementExample {
         PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM `employee` WHERE `id` = ?");
         preparedStatement.setInt(1, id);
         preparedStatement.execute();
+    }
+
+    static List<Employee> selectAllExample(Connection connection) throws SQLException{
+        List<Employee> output = new ArrayList<>();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT name, salary FROM employee");
+        while(resultSet.next()){
+            output.add(new Employee(resultSet.getString(1),resultSet.getInt(2)));
+        }
+        return output;
     }
 }
