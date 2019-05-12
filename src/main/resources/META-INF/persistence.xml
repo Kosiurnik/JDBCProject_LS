@@ -15,7 +15,7 @@
             <property name="javax.persistence.jdbc.password" value="jdbcproject123"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/jdbcproject?serverTimezone=UTC"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <!-- CREATE - jeśli tabela nie istnieje, tworzy ją, w przeciwnym razie dropuje i tworzy od nowa -->
             <!-- UPDATE - jeśli tabela nie istnieje, tworzy ją, w przeciwnym razie dokłada do niej dane/kolumny bez czyszczenia danych-->
             <!-- VALIDATE - jeśli tabela nie istnieje, wyrzuca wyjątek-->

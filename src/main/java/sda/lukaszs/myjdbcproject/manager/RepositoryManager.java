@@ -2,9 +2,7 @@ package sda.lukaszs.myjdbcproject.manager;
 
 import lombok.Getter;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import sda.lukaszs.myjdbcproject.repository.EmployeeRepository;
-import sda.lukaszs.myjdbcproject.repository.ProductRepository;
-import sda.lukaszs.myjdbcproject.repository.UserRepository;
+import sda.lukaszs.myjdbcproject.repository.*;
 
 public class RepositoryManager {
 
@@ -24,4 +22,10 @@ public class RepositoryManager {
     private UserRepository userRepository = context.getBean("UserRepository", UserRepository.class);
     @Getter
     private ProductRepository productRepository = context.getBean("ProductRepository", ProductRepository.class);
+    @Getter
+    private ProductCategoryRepository productCategoryRepository = context.getBean("ProductCategoryRepository", ProductCategoryRepository.class);
+    @Getter
+    private CustomerRepository customerRepository = context.getBean("CustomerRepository", CustomerRepository.class);
+    @Getter
+    private ShoppingOrderRepository shoppingOrderRepository = context.getBean("ShoppingOrderRepository", ShoppingOrderRepository.class);
 }

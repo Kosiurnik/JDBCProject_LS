@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -31,6 +33,19 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = new BigDecimal(price);
+    }
+
+    @ManyToOne
+    @JoinColumn(name="category_id")
+    private ProductCategory productCategory;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.product")
+    private List<ShoppingOrderProductAlloc> shoppingOrderProducts = new ArrayList<>();
+
+    public Product(String name, double price, ProductCategory category){
+        this.name = name;
+        this.price = new BigDecimal(price);
+        this.productCategory = category;
     }
 
     @Override

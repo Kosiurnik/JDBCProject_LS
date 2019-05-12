@@ -6,4 +6,7 @@
     <bean id="EmployeeRepository" class="sda.lukaszs.myjdbcproject.repository.EmployeeRepository" />
     <bean id="UserRepository" class="sda.lukaszs.myjdbcproject.repository.UserRepository" />
     <bean id="ProductRepository" class="sda.lukaszs.myjdbcproject.repository.ProductRepository" />
+    <bean id="ProductCategoryRepository" class="sda.lukaszs.myjdbcproject.repository.ProductCategoryRepository" />
+    <bean id="CustomerRepository" class="sda.lukaszs.myjdbcproject.repository.CustomerRepository" />
+    <bean id="ShoppingOrderRepository" class="sda.lukaszs.myjdbcproject.repository.ShoppingOrderRepository" />
 </beans>
