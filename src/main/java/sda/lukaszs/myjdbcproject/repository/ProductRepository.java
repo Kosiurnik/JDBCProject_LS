@@ -2,7 +2,7 @@ package sda.lukaszs.myjdbcproject.repository;
 
 import org.springframework.stereotype.Repository;
 import sda.lukaszs.myjdbcproject.manager.HibernateEntityManager;
-import sda.lukaszs.myjdbcproject.model.Employee;
+import sda.lukaszs.myjdbcproject.model.Product;
 import sda.lukaszs.myjdbcproject.repository.interfaces.RepositoryInterface;
 
 import javax.persistence.TypedQuery;
@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class EmployeeRepository implements RepositoryInterface<Employee> {
+public class ProductRepository implements RepositoryInterface<Product> {
     @Override
-    public Employee getById(long id) {
+    public Product getById(long id) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
-            TypedQuery<Employee> query = em.getEntityManager().createQuery("select e from Employee e where e.id = :eID",Employee.class).setParameter("eID", id);
-            Employee employee = query.getSingleResult();
-            if(employee != null){
-                return employee;
+            TypedQuery<Product> query = em.getEntityManager().createQuery("select p from Product p where p.id = :pID",Product.class).setParameter("pID", id);
+            Product product = query.getSingleResult();
+            if(product != null){
+                return product;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -26,11 +26,11 @@ public class EmployeeRepository implements RepositoryInterface<Employee> {
     }
 
     @Override
-    public List<Employee> getAll() {
+    public List<Product> getAll() {
         try(HibernateEntityManager em = new HibernateEntityManager()){
-            List<Employee> people = em.getEntityManager().createQuery("select e from Employee e order by e.id",Employee.class).getResultList();
-            if(people.size()!=0){
-                return people;
+            List<Product> products = em.getEntityManager().createQuery("select p from Product p order by p.id",Product.class).getResultList();
+            if(products.size()!=0){
+                return products;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,10 +39,10 @@ public class EmployeeRepository implements RepositoryInterface<Employee> {
     }
 
     @Override
-    public void add(Employee employee) {
+    public void add(Product product) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
             em.getEntityManager().getTransaction().begin();
-            em.getEntityManager().persist(employee);
+            em.getEntityManager().persist(product);
             em.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,11 +50,11 @@ public class EmployeeRepository implements RepositoryInterface<Employee> {
     }
 
     @Override
-    public void addList(List<Employee> employees) {
+    public void addList(List<Product> products) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
             em.getEntityManager().getTransaction().begin();
-            for(Employee employee : employees){
-                em.getEntityManager().persist(employee);
+            for(Product product : products){
+                em.getEntityManager().persist(product);
             }
             em.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
@@ -63,10 +63,10 @@ public class EmployeeRepository implements RepositoryInterface<Employee> {
     }
 
     @Override
-    public void edit(Employee employee) {
+    public void edit(Product product) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
             em.getEntityManager().getTransaction().begin();
-            em.getEntityManager().merge(employee);
+            em.getEntityManager().merge(product);
             em.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,10 +74,10 @@ public class EmployeeRepository implements RepositoryInterface<Employee> {
     }
 
     @Override
-    public void delete(Employee employee) {
+    public void delete(Product product) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
             em.getEntityManager().getTransaction().begin();
-            em.getEntityManager().remove(em.getEntityManager().find(Employee.class, employee.getId()));
+            em.getEntityManager().remove(em.getEntityManager().find(Product.class, product.getId()));
             em.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();

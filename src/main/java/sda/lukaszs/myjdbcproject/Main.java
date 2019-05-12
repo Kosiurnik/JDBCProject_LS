@@ -1,7 +1,9 @@
 package sda.lukaszs.myjdbcproject;
 
+import org.springframework.stereotype.Repository;
 import sda.lukaszs.myjdbcproject.manager.RepositoryManager;
 import sda.lukaszs.myjdbcproject.model.Employee;
+import sda.lukaszs.myjdbcproject.model.Product;
 import sda.lukaszs.myjdbcproject.model.User;
 
 import java.sql.Connection;
@@ -51,8 +53,26 @@ public class Main {
     private static void HibernateExample() {
         Scanner scanner = new Scanner(System.in);
         //zad_9(scanner);
-        testUsers();
+        //testUsers();
+        testProducts();
         scanner.close();
+    }
+
+    private static void testProducts(){
+        /*Product product = new Product();
+        product.setName("produkt");
+        product.setPrice(2.99);
+        RepositoryManager.getInstance().getProductRepository().add(product);*/
+
+        Product product = RepositoryManager.getInstance().getProductRepository().getById(1);
+        System.out.println(product.getPrice());
+
+        System.out.println(product.getName());
+        product.setName("produkt2");
+        RepositoryManager.getInstance().getProductRepository().edit(product);
+        System.out.println("produkt3");
+
+        RepositoryManager.getInstance().getProductRepository().delete(product);
     }
 
     private static void testUsers(){

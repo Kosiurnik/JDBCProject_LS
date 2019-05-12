@@ -5,4 +5,5 @@
 
     <bean id="EmployeeRepository" class="sda.lukaszs.myjdbcproject.repository.EmployeeRepository" />
     <bean id="UserRepository" class="sda.lukaszs.myjdbcproject.repository.UserRepository" />
+    <bean id="ProductRepository" class="sda.lukaszs.myjdbcproject.repository.ProductRepository" />
 </beans>

@@ -2,17 +2,15 @@ package sda.lukaszs.myjdbcproject.repository;
 
 import org.springframework.stereotype.Repository;
 import sda.lukaszs.myjdbcproject.manager.HibernateEntityManager;
-import sda.lukaszs.myjdbcproject.model.Employee;
 import sda.lukaszs.myjdbcproject.model.User;
-import sda.lukaszs.myjdbcproject.repository.interfaces.EmployeeRepositoryInterface;
-import sda.lukaszs.myjdbcproject.repository.interfaces.UserRepositoryInterface;
+import sda.lukaszs.myjdbcproject.repository.interfaces.RepositoryInterface;
 
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepository implements UserRepositoryInterface {
+public class UserRepository implements RepositoryInterface<User> {
     @Override
     public User getById(long id) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
@@ -79,7 +77,7 @@ public class UserRepository implements UserRepositoryInterface {
     public void delete(User user) {
         try(HibernateEntityManager em = new HibernateEntityManager()){
             em.getEntityManager().getTransaction().begin();
-            em.getEntityManager().remove(em.getEntityManager().find(Employee.class, user.getId()));
+            em.getEntityManager().remove(em.getEntityManager().find(User.class, user.getId()));
             em.getEntityManager().getTransaction().commit();
         } catch (Exception e) {
             e.printStackTrace();
