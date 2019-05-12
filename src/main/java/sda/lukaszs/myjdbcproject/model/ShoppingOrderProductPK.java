@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Data
-public class ShoppingOrderProductPK implements Serializable {
+class ShoppingOrderProductPK implements Serializable {
 
     @ManyToOne
     private ShoppingOrder shoppingOrder;

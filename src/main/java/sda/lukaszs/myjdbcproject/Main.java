@@ -7,6 +7,7 @@ import sda.lukaszs.myjdbcproject.model.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -63,6 +64,9 @@ public class Main {
         customers.add(new Customer("Adam","Adamowski"));
         customers.add(new Customer("Barbara","Barbarowicz"));
         customers.add(new Customer("Cezary","Cezarowski"));
+        customers.get(0).setDetails(new CustomerDetails("Jagiellońska 6","85-123","Bydgoszcz","+48654923122"));
+        customers.get(1).setDetails(new CustomerDetails("Żeglarska 16","81-423","Gdańsk","0522341223"));
+        customers.get(2).setDetails(new CustomerDetails("Morska 1","35-123","Poznań","512909231"));
         RepositoryManager.getInstance().getCustomerRepository().addList(customers);
 
         //PRODUKTY I KATEGORIE
@@ -150,6 +154,13 @@ public class Main {
             System.out.println();
         }
 
+        //ZMIANY W ZAMÓWIENIU
+        ShoppingOrder shoppingOrder = RepositoryManager.getInstance().getShoppingOrderRepository().getById(1);
+        shoppingOrder.setOrderDate(LocalDateTime.of(2019,5,12,16,0));
+        RepositoryManager.getInstance().getShoppingOrderRepository().edit(shoppingOrder);
+
+        ProductCategory category = RepositoryManager.getInstance().getProductCategoryRepository().getById(1);
+        RepositoryManager.getInstance().getProductCategoryRepository().delete(category);
     }
 
     private static void testUsers(){

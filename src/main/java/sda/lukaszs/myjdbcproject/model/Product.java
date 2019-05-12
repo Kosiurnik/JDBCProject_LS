@@ -15,14 +15,19 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data
-@Table(name="product")
+@Table(name="product", uniqueConstraints = {
+        @UniqueConstraint(
+                columnNames = {"name"},
+                name="UK_product_name"
+        )
+})
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "id", nullable = false)
     private long id;
 
     @Column(name = "name", nullable = false, unique = true, columnDefinition="VARCHAR(100) DEFAULT ''")
@@ -36,7 +41,7 @@ public class Product {
     }
 
     @ManyToOne
-    @JoinColumn(name="category_id")
+    @JoinColumn(name="category_id", foreignKey=@ForeignKey(name = "FK_product_productcategory"))
     private ProductCategory productCategory;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.product")
@@ -50,6 +55,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return String.format("%d;%s;%d;", id, name, price);
+        return String.format("%d;%s;%f;", id, name, price);
     }
 }

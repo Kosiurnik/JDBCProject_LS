@@ -25,7 +25,7 @@ public class ProductCategory {
     @Column(name = "name", nullable = false, unique = true, columnDefinition="VARCHAR(100) DEFAULT ''")
     private String name;
 
-    @OneToMany(mappedBy="productCategory")
+    @OneToMany(mappedBy="productCategory", cascade = CascadeType.DETACH)
     private List<Product> products;
 
     public ProductCategory(String name){

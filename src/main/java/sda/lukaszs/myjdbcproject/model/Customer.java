@@ -25,24 +25,13 @@ public class Customer {
     @Column(name = "last_name", nullable = false, columnDefinition="VARCHAR(50) DEFAULT ''")
     private String lastName;
 
-    @Column(name = "address", columnDefinition="VARCHAR(150) DEFAULT ''")
-    private String address;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_details_id", foreignKey=@ForeignKey(name = "FK_customer_customerdetails"))
+    CustomerDetails details;
 
-    @Column(name = "postal_code", columnDefinition="VARCHAR(10) DEFAULT ''")
-    private String postalCode;
-
-    @Column(name = "city", columnDefinition="VARCHAR(50) DEFAULT ''")
-    private String city;
-
-    @Column(name = "phone_number", columnDefinition="VARCHAR(20) DEFAULT ''")
-    private String phoneNumber;
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = "";
-        this.postalCode = "";
-        this.city = "";
-        this.phoneNumber = "";
     }
 }

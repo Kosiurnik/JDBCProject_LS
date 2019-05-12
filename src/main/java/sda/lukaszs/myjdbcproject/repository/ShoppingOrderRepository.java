@@ -5,7 +5,9 @@ import sda.lukaszs.myjdbcproject.model.ShoppingOrder;
 import sda.lukaszs.myjdbcproject.model.ShoppingOrderProductAlloc;
 import sda.lukaszs.myjdbcproject.repository.interfaces.RepositoryInterface;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,11 +85,7 @@ public class ShoppingOrderRepository implements RepositoryInterface<ShoppingOrde
 
     @Override
     public void edit(ShoppingOrder shoppingOrder) {
-        try(HibernateEntityManager em = new HibernateEntityManager()){
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        update(shoppingOrder);
     }
 
     @Override
@@ -99,5 +97,33 @@ public class ShoppingOrderRepository implements RepositoryInterface<ShoppingOrde
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Transactional
+    private boolean update(ShoppingOrder order) {
+        try(HibernateEntityManager em = new HibernateEntityManager()){
+            Query query = em.getEntityManager().createQuery("update ShoppingOrder so set so.orderDate = :orderDate, so.customer = :customer where so.id = '"+order.getId()+"'");
+            query.setParameter("orderDate", order.getOrderDate());
+            query.setParameter("customer", order.getCustomer());
+
+            ShoppingOrder tempShoppingOrder = getById(order.getId());
+            em.getEntityManager().getTransaction().begin();
+
+            for(ShoppingOrderProductAlloc oldList : tempShoppingOrder.getShoppingOrderProducts())
+                em.getEntityManager().remove(em.getEntityManager().contains(oldList) ? oldList : em.getEntityManager().merge(oldList));
+
+            /*muszę wsadzać nowe pozycje w kolejności odwróconej, inaczej kolejność istniejących pozycji będzie odwracana przy każdej edycji*/
+            List<ShoppingOrderProductAlloc> newList = order.getShoppingOrderProducts();
+            for(int x = (newList.size()-1); x>=0; x--)
+                em.getEntityManager().persist(newList.get(x));
+
+            query.executeUpdate();
+            em.getEntityManager().getTransaction().commit();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }
